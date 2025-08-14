@@ -158,9 +158,12 @@ const Portfolio: React.FC = () => {
     ];
 
     const skillCategories: Array<{ category: string; skills: string[]; color: string }> = [
-        { category: "Languages & Frameworks", skills: ["Python", "TypeScript", "Java", "React", "Next.js", "Node.js"], color: "cyan" },
-        { category: "AI/ML & Data", skills: ["PyTorch", "LangChain", "HuggingFace", "NumPy", "PostgreSQL"], color: "purple" },
-        { category: "Cloud & Tools", skills: ["Google Cloud", "AWS", "Docker", "Git", "CI/CD"], color: "fuchsia" }
+        { category: "Programming Languages", skills: ["Python", "Java", "Typescript", "JavaScript", "C", "C++"], color: "cyan" },
+        { category: "Frontend", skills: ["Next.js", "React", "HTML", "CSS", "Tailwind CSS", "Axios", "Vercel"], color: "yellow" },
+        { category: "Backend", skills: ["Node.js", "Express", "REST APIs", "Websockets", "SQL (PostgreSQL)"], color: "red" },
+        { category: "AI/ML", skills: ["PyTorch", "HuggingFace Transformers", "NumPy", "Pandas", "Scikit-Learn", "NLTK", "Matplotlib", "Seaborn"], color: "purple" },
+        { category: "Cloud", skills: ["Google Cloud Platform (Cloud Run, Storage, IAM)", "AWS (EC2, S3)"], color: "fuchsia" },
+        { category: "Developer Tools", skills: ["Linux/Unix", "Git", "Github Actions", "Docker", "Pytest"], color: "green" }
     ];
 
     const navigationItems: string[] = ['home', 'about', 'experience', 'projects', 'skills', 'contact'];
@@ -243,12 +246,12 @@ const Portfolio: React.FC = () => {
                 <section id="home" className="min-h-screen flex items-center justify-center px-6">
                     <div className="text-center max-w-5xl">
                         <div className="mb-8">
-                            <h1 className="text-7xl md:text-9xl font-bold mb-4 tracking-tight">
+                            <h1 className="text-6xl md:text-8xl font-bold mb-4 tracking-tight">
                                 <span className="bg-gradient-to-r from-white via-cyan-100 to-white bg-clip-text text-transparent">
                                     Donghao
                                 </span>
                             </h1>
-                            <h1 className="text-7xl md:text-9xl font-bold mb-8 tracking-tight">
+                            <h1 className="text-6xl md:text-8xl font-bold mb-8 tracking-tight">
                                 <span className="bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 bg-clip-text text-transparent">
                                     Zeng
                                 </span>
@@ -256,12 +259,14 @@ const Portfolio: React.FC = () => {
                         </div>
 
                         <p className="text-2xl md:text-3xl mb-6 text-gray-300 font-light animate-fadeInUp" style={{ animationDelay: '0.5s', animationFillMode: 'both' }}>
-                            AI/ML Engineer & Full-Stack Developer
+                            I love doing matrix multiplications.
                         </p>
 
+                        <p className="text-lg text-gray-400 mb-0 max-w-3xl mx-auto leading-relaxed animate-fadeInUp" style={{ animationDelay: '0.7s', animationFillMode: 'both' }}>
+                            Computer Science student at McGill University crafting intelligent systems
+                        </p>
                         <p className="text-lg text-gray-400 mb-12 max-w-3xl mx-auto leading-relaxed animate-fadeInUp" style={{ animationDelay: '0.7s', animationFillMode: 'both' }}>
-                            Computer Science student at McGill University crafting intelligent systems with
-                            large language models, reinforcement learning, and cutting-edge web technologies.
+                            with LLMs, RL, and web technologies!
                         </p>
 
                         <div className="flex justify-center space-x-8 mb-16 animate-fadeInUp" style={{ animationDelay: '0.9s', animationFillMode: 'both' }}>
@@ -470,21 +475,29 @@ const Portfolio: React.FC = () => {
                             </span>
                         </h2>
 
-                        <div className="grid md:grid-cols-3 gap-8">
+                        <div className="grid md:grid-cols-3 gap-8 mb-24">
                             {skillCategories.map((skillGroup, index: number) => (
                                 <GlassCard key={index} className={`p-6 group hover:scale-105 transition-all duration-700 ${visibleSections.has('skills')
                                     ? 'opacity-100 translate-y-0'
                                     : 'opacity-0 translate-y-8'
                                     }`} style={{ transitionDelay: `${(index + 1) * 200}ms` }}>
                                     <h3 className={`text-lg font-semibold mb-4 ${skillGroup.color === 'cyan' ? 'text-cyan-400' :
-                                        skillGroup.color === 'purple' ? 'text-purple-400' :
-                                            'text-fuchsia-400'
+                                        skillGroup.color === 'yellow' ? 'text-yellow-400' :
+                                            skillGroup.color === 'red' ? 'text-red-400' :
+                                                skillGroup.color === 'purple' ? 'text-purple-400' :
+                                                    skillGroup.color === 'fuchsia' ? 'text-fuchsia-400' :
+                                                        skillGroup.color === 'green' ? 'text-green-400' :
+                                                            'text-fuchsia-400'
                                         }`}>{skillGroup.category}</h3>
                                     <div className="flex flex-wrap gap-2">
                                         {skillGroup.skills.map((skill: string, i: number) => (
                                             <span key={i} className={`px-3 py-1 rounded-full text-sm text-gray-300 hover:text-white transition-all duration-300 hover:scale-110 cursor-default ${skillGroup.color === 'cyan' ? 'bg-cyan-400/10 border border-cyan-400/20 hover:bg-cyan-400/20' :
-                                                skillGroup.color === 'purple' ? 'bg-purple-400/10 border border-purple-400/20 hover:bg-purple-400/20' :
-                                                    'bg-fuchsia-400/10 border border-fuchsia-400/20 hover:bg-fuchsia-400/20'
+                                                skillGroup.color === 'yellow' ? 'bg-yellow-400/10 border border-yellow-400/20 hover:bg-yellow-400/20' :
+                                                    skillGroup.color === 'red' ? 'bg-red-400/10 border border-red-400/20 hover:bg-red-400/20' :
+                                                        skillGroup.color === 'purple' ? 'bg-purple-400/10 border border-purple-400/20 hover:bg-purple-400/20' :
+                                                            skillGroup.color === 'fuchsia' ? 'bg-fuchsia-400/10 border border-fuchsia-400/20 hover:bg-fuchsia-400/20' :
+                                                                skillGroup.color === 'green' ? 'bg-green-400/10 border border-green-400/20 hover:bg-green-400/20' :
+                                                                    'bg-fuchsia-400/10 border border-fuchsia-400/20 hover:bg-fuchsia-400/20'
                                                 }`}>
                                                 {skill}
                                             </span>
