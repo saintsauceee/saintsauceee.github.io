@@ -23,8 +23,8 @@ export default function Home() {
     <div className="flex flex-col w-screen min-h-screen items-center bg-[#F9FAFB] relative">
 
       {/* Introduction */}
-      <div className="flex flex-col lg:w-[55%] md:w-[80%]">
-        <div className="flex flex-col w-[80%] h-screen gap-10 mx-auto">
+      <div className="flex flex-col lg:w-[55%] md:w-[80%] h-fit">
+        <div className="flex flex-col w-[80%] min-h-screen gap-10 mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
@@ -107,7 +107,7 @@ export default function Home() {
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.8 }}
-            className="flex flex-col items-center mt-40 cursor-pointer group"
+            className="flex flex-col items-center mt-32 cursor-pointer group"
             onClick={handleBubbleClick}
           >
             <span className="w-3 h-3 rounded-full mb-1 bg-gradient-to-br from-pink-400 via-purple-400 to-blue-400 opacity-40 shadow-md transition-opacity group-hover:opacity-90 group-active:opacity-40 duration-300"></span>
@@ -134,7 +134,7 @@ export default function Home() {
 
       {/* Resume */}
       <div className="flex flex-col lg:w-[55%] md:w-[80%]">
-        <div ref={nextSectionRef} className="flex flex-col w-[80%] h-screen gap-12 mx-auto p-2">
+        <div ref={nextSectionRef} className="flex flex-col w-[80%] min-h-screen gap-12 mx-auto p-2">
           <div className="mt-32">
             <p>Here goes my journey!</p>
           </div>
