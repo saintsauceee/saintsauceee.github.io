@@ -8,7 +8,7 @@ import { FaLinkedin } from "react-icons/fa6";
 import { MdEmail } from "react-icons/md";
 
 import { useRef } from "react";
-import { EXPERIENCES } from "@/data";
+import { EXPERIENCES, PROJECTS } from "@/data";
 
 export default function Home() {
   const nextSectionRef = useRef<HTMLDivElement>(null);
@@ -154,22 +154,44 @@ export default function Home() {
                       )
                     })}
                   </div>
-                  <div className="flex flex-col gap-2 text-xs">
+                  <ul className="flex flex-col gap-2 text-xs list-disc list-outside pl-5">
                     {experience.bullets.map((bullet, index) => {
                       return (
-                        <div key={index}>
+                        <li key={index}>
                           {bullet}
-                        </div>
+                        </li>
                       )
                     })}
-                  </div>
+                  </ul>
                 </div>
+              </div>
+            )
+          })}
+          {PROJECTS.map((project, index) => {
+            return (
+              <div key={index} className="flex flex-col gap-4">
+                <p>{project.title}</p>
+                <div className="flex flex-row gap-1 text-xs">
+                  Technologies:
+                  <p>{project.tech}</p>
+                </div>
+                <p className="text-xs">{project.description}</p>
+                <ul className="flex flex-col gap-2 text-xs list-disc list-outside pl-5">
+                  {project.bullets.map((bullet, index) => {
+                    return (
+                      <li key={index} className="text-xs">
+                        {bullet}
+                      </li>
+                    )
+                  })}
+                </ul>
               </div>
             )
           })}
         </div>
       </div>
 
+      <div className="h-24"></div>
     </div>
   );
 }

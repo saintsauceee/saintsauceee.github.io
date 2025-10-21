@@ -29,7 +29,7 @@ export const EXPERIENCES: Experience[] = [
 export const PROJECTS: Project[] = [
     {
         title: "Reddit Deep Research",
-        description: "",
+        description: "Hi",
         tech: "LangGraph, MCP, Next.js, Express, Websockets",
         bullets: [
             "Architected a LangGraph multi-agent deep research system with orchestrator, search, and citation agents.",
@@ -39,7 +39,7 @@ export const PROJECTS: Project[] = [
     },
     {
         title: "LLM Math Reasoning",
-        description: "",
+        description: "Hi",
         tech: "Reinforcement Learning, Pytorch, HuggingFace Transformers",
         bullets: [
             "Built an end-to-end fine-tuning system with SFT + RL (GRPO) to achieve math reasoning in small LLMs (350M).",
@@ -49,7 +49,7 @@ export const PROJECTS: Project[] = [
     },
     {
         title: "GoEmotions NLP Classifier",
-        description: "",
+        description: "Hi",
         tech: "PyTorch, HuggingFace Transformers, Scikit-Learn",
         bullets: [
             "Benchmarked traditional ML models (SR, RF, XGB, NB) against finetuned BERT-family LLMs on the GoEmotions dataset (58K Reddit comments over 28 classes), reaching 62% accuracy and 0.50 f1 (8% higher than the original paper’s results).",
