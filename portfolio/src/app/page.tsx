@@ -118,7 +118,7 @@ export default function Home() {
             </span>
           </motion.div>
 
-          <style jsx global>{`
+          {/* <style jsx global>{`
           @keyframes aesthetic-float {
             0%, 100% { transform: translateY(0); opacity: 0.7; }
             50% { transform: translateY(8px); opacity: 1; }
@@ -127,68 +127,9 @@ export default function Home() {
             animation: aesthetic-float 1.6s infinite;
             display: inline-block;
           }
-        `}</style>
+        `}</style> */}
         </div>
 
-      </div>
-
-      {/* Resume */}
-      <div className="flex flex-col lg:w-[55%] md:w-[80%]">
-        <div ref={nextSectionRef} className="flex flex-col w-[80%] min-h-screen gap-12 mx-auto p-2">
-          <div className="mt-32">
-            <p>Here goes my journey!</p>
-          </div>
-          {EXPERIENCES.map((experience, index) => {
-            return (
-              <div key={index}>
-                <div className="flex flex-col text-md gap-4">
-                  <div className="flex flex-row justify-between">
-                    <p>{experience.role} @ {experience.company}</p>
-                    <p>{experience.period}</p>
-                  </div>
-                  <div className="flex flex-row gap-1 text-xs">
-                    Technologies:
-                    {experience.technologies.map((technology, index) => {
-                      return (
-                        <p key={index}>{technology}</p>
-                      )
-                    })}
-                  </div>
-                  <ul className="flex flex-col gap-2 text-xs list-disc list-outside pl-5">
-                    {experience.bullets.map((bullet, index) => {
-                      return (
-                        <li key={index}>
-                          {bullet}
-                        </li>
-                      )
-                    })}
-                  </ul>
-                </div>
-              </div>
-            )
-          })}
-          {PROJECTS.map((project, index) => {
-            return (
-              <div key={index} className="flex flex-col gap-4">
-                <p>{project.title}</p>
-                <div className="flex flex-row gap-1 text-xs">
-                  Technologies:
-                  <p>{project.tech}</p>
-                </div>
-                <p className="text-xs">{project.description}</p>
-                <ul className="flex flex-col gap-2 text-xs list-disc list-outside pl-5">
-                  {project.bullets.map((bullet, index) => {
-                    return (
-                      <li key={index} className="text-xs">
-                        {bullet}
-                      </li>
-                    )
-                  })}
-                </ul>
-              </div>
-            )
-          })}
-        </div>
       </div>
 
       <div className="h-24"></div>
