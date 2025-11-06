@@ -58,11 +58,11 @@ export default function Home() {
               Donghao Zeng
             </a>
             <a
-              href="mailto:t.donghao.zeng@gmail.com"
+              href="mailto:donghao.zeng@mail.mcgill.ca"
               className="flex flex-row gap-2 hover:text-gray-600 transition-colors"
             >
               <MdEmail className="h-5 w-5" aria-hidden />
-              t.donghao.zeng@gmail.com
+              donghao.zeng@mail.mcgill.ca
             </a>
           </motion.div>
           <motion.div
