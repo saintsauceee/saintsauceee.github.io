@@ -1,14 +1,14 @@
 export const EXPERIENCES: Experience[] = [
     {
         company: "Mila – Quebec AI Institute",
-        role: "Research Intern",
-        period: "Jan. 2026 – Aug. 2026",
+        role: "AI Research Intern",
+        period: "Jan. 2026 – Present",
         technologies: [
-            "PyTorch", "vLLM", "Kubernetes", "SLURM", "HuggingFace"
+            "PyTorch", "Docker", "HuggingFace", "Multi-GPU", "LLM Evaluation"
         ],
         bullets: [
-            "Conducting research on cross-modal representation sharing in unified Vision-Language Models, extracting and steering residual stream directions to test influence of text-derived concepts on image generation and enable fine-grained image editing.",
-            "Engineered reproducible PyTorch pipelines for multi-GPU SLURM clusters and orchestrated horizontally-scaled vLLM inference with Kubernetes to parallelize LLM evaluation jobs, reducing end-to-end runtime by 30%.",
+            "Conducting research on cross-modal representation sharing in unified Vision-Language Models, extracting and steering residual stream directions to study how text-derived concepts influence fine-grained image generation and editing.",
+            "Engineered reproducible PyTorch experimentation pipelines on multi-GPU clusters with Docker, implementing activation steering and LLM-based evaluation pipelines. Applied GPU profiling to improve experiment throughput by 35%.",
             "Collaborated with senior researchers to iteratively design, evaluate, and refine experimental methodologies.",
         ]
     },
@@ -20,9 +20,8 @@ export const EXPERIENCES: Experience[] = [
             "Electron.js", "Express", "LangChain", "pgvector", "Docker", "GCP", "Python", "TypeScript"
         ],
         bullets: [
-            "Built and deployed a GenAI-driven tool using hybrid RAG (vector search + structured queries) over the company's knowledge base, reducing average customer support resolution time by 20%, using Electron, Express, LangChain and pgvector.",
-            "Engineered a scalable data ingestion pipeline processing 10,000+ internal documents monthly, integrating LLM-based chunking and batched embeddings, with automated deployments on Compute Engine via CI/CD with Docker and GitHub Actions.",
-            "Optimized semantic search latency with HNSW indexing and relevance-based reranking to achieve sub-100ms latency.",
+            "Built and deployed a GenAI-driven tool using hybrid RAG (vector search + structured queries) over the company's knowledge base, reducing average customer support resolution time by 25% using Electron, Express, LangChain and pgvector.",
+            "Engineered a document ingestion pipeline processing 10k+ internal documents per month using LLM chunking and batched embeddings, deployed on Google Compute Engine via CI/CD with Docker + GitHub Actions.",
         ]
     },
     {
@@ -33,30 +32,28 @@ export const EXPERIENCES: Experience[] = [
             "Next.js", "Express", "TypeScript", "AWS Bedrock", "PostgreSQL", "AWS", "Python"
         ],
         bullets: [
-            "Developed an AI-powered video production tool including captioning and multimodal LLM pipelines for highlight segmentation, demoed at the Vancouver Web Summit (15k+ attendees), reducing manual review time from hours to minutes.",
-            "Built a Claude Sonnet powered microservice using AWS Bedrock for AI content generation serving 5K+ user requests daily, implementing tool use, prompt templates, response streaming, and error handling with rate limiting and retry logic.",
-            "Designed, implemented and documented 20+ production REST endpoints with Express + TypeScript (payments, auth, video/image generation), and set up secure NGINX SSL and AWS EC2 deployment pipelines.",
+            "Shipped a fullstack video production platform integrating video captioning and multimodal LLM pipelines for highlight segmentation, reducing manual footage review time by 85%. Demoed at the Vancouver Web Summit (15k+ attendees).",
+            "Developed a Claude Sonnet-powered microservice using AWS Bedrock for AI content generation serving 5K+ user requests daily, implementing tool use, prompt templates, streaming responses, rate limiting, and fault-tolerant retries.",
+            "Implemented 20+ production REST API endpoints with Express + TypeScript (payments, auth, image/video generation), deployed via automated pipelines to AWS EC2 with secure NGINX SSL termination.",
         ]
     }
 ]
 
 export const PROJECTS: Project[] = [
     {
-        title: "LLM Math Reasoning with GRPO",
+        title: "Thread Lens",
         description: "",
-        tech: "LLM Post-Training · Reinforcement Learning · HuggingFace Transformers · PyTorch",
+        tech: "Multi-Agent Systems · LLM APIs · Python",
         bullets: [
-            "Built an end-to-end post-training pipeline with SFT + RL (GRPO) and LoRA adapters for Qwen2.5-0.5B, implementing a custom GRPO trainer and a BERT-based verifier reward model to score CoT traces with richer RL feedback.",
-            "Improved GSM8K accuracy from 4% to 27% (6.75x improvement) with 40% faster convergence than PPO baseline.",
+            "Built a multi-agent deep research system for Reddit, where a planner agent decomposes user prompts into research tasks executed by parallel worker agents that analyze discussion threads and synthesize findings into structured reports.",
         ]
     },
     {
-        title: "Visual CoT for Spatial Planning",
+        title: "C Compiler",
         description: "",
-        tech: "GenAI · HuggingFace Transformers · PyTorch",
+        tech: "Java · Compiler Design · MIPS Assembly",
         bullets: [
-            "Engineered a distributed evaluation framework for LLM spatial reasoning using the Rush Hour puzzle with parallel inference and fault-tolerant scheduling, reducing evaluation time from 8 hours to 20 minutes (24x speedup).",
-            "Developed an augmented prompting and in-context state simulation approach, combining deterministic execution checks and LLM-as-a-judge analysis to identify illegal moves, state-tracking errors, and qualitative reasoning failures.",
+            "Built a mini C compiler in Java targeting MIPS assembly instructions, implementing a handwritten lexer, recursive-descent parser, semantic analyzer, code generator, and register allocator.",
         ]
     },
 ]
@@ -71,25 +68,25 @@ export const SKILLS: Skill[] = [
     {
         name: "Programming Languages",
         elements: [
-            "Python", "TypeScript", "Javascript", "Java", "C", "C++", "SQL", "Bash"
+            "Python", "TypeScript", "JavaScript", "Java", "C/C++", "SQL", "Bash"
         ]
     },
     {
         name: "Frameworks",
         elements: [
-            "Next.js", "React", "Node", "Express", "FastAPI", "WebSockets", "NumPy", "NLTK"
+            "Node.js", "Express", "FastAPI", "WebSockets", "React", "Next.js", "HTML", "CSS"
         ]
     },
     {
         name: "Cloud",
         elements: [
-            "Google Cloud (Run, Compute Engine, Storage, Vertex AI)", "AWS (EC2, S3)"
+            "Google Cloud (Run, Compute Engine, Storage)", "AWS (EC2, S3)"
         ]
     },
     {
         name: "Developer Tools",
         elements: [
-            "Git", "Docker", "Kubernetes", "GitHub Actions", "CI/CD", "Linux", "Unix"
+            "Git", "Docker", "Terraform", "GitHub Actions", "Unix/Linux"
         ]
     },
 ]
