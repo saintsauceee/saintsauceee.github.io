@@ -15,7 +15,7 @@ const wordContainer = {
 };
 const wordItem = {
   hidden: { opacity: 0, y: 24, filter: "blur(10px)" },
-  show: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } },
+  show: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.6, ease: "easeOut" as const } },
 };
 
 function AnimatedWords({ text, className }: { text: string; className?: string }) {
