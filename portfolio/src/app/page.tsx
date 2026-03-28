@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useInView, useScroll, useTransform } from "framer-motion";
+import { motion, useInView, useScroll, useTransform, useSpring, MotionValue } from "framer-motion";
 import { FaGithub } from "react-icons/fa";
 import { FaLinkedin } from "react-icons/fa6";
 import { MdEmail } from "react-icons/md";
@@ -56,7 +56,7 @@ function Marquee({ items, reverse = false, speed = 30 }: {
         transition={{ duration: speed, repeat: Infinity, ease: "linear" }}>
         {tripled.map((item, i) => (
           <span key={i} className="text-[11px] font-mono text-white/50 tracking-widest uppercase">
-            {item}<span className="mx-4 text-white/10">·</span>
+            {item}<span className="mx-4 text-white/10">&middot;</span>
           </span>
         ))}
       </motion.div>
@@ -88,6 +88,45 @@ function TiltCard({ children, className }: { children: React.ReactNode; classNam
   );
 }
 
+// ── Scroll-driven text reveal ──────────────────────────────────────────────────
+
+function ScrollWord({ word, range, progress }: {
+  word: string; range: [number, number]; progress: MotionValue<number>;
+}) {
+  const opacity = useTransform(progress, range, [0.08, 1]);
+  return (
+    <motion.span style={{ opacity }} className="inline-block mr-[0.3em]">
+      {word}
+    </motion.span>
+  );
+}
+
+function ScrollRevealText({ text, progress }: { text: string; progress: MotionValue<number> }) {
+  const words = text.split(" ");
+  return (
+    <p className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-snug tracking-tight max-w-2xl">
+      {words.map((word, i) => {
+        const start = i / words.length;
+        const end = (i + 1) / words.length;
+        return <ScrollWord key={i} word={word} range={[start, end]} progress={progress} />;
+      })}
+    </p>
+  );
+}
+
+// ── Scroll progress indicator ──────────────────────────────────────────────────
+
+function ScrollProgress() {
+  const { scrollYProgress } = useScroll();
+  const scaleY = useSpring(scrollYProgress, { stiffness: 100, damping: 30, restDelta: 0.001 });
+  return (
+    <motion.div
+      className="fixed top-0 right-0 w-[2px] h-screen bg-violet-500/60 origin-top z-50 hidden lg:block"
+      style={{ scaleY }}
+    />
+  );
+}
+
 // ── Page ───────────────────────────────────────────────────────────────────────
 
 const EXP_COLORS = [
@@ -102,6 +141,9 @@ const NAV_SECTIONS = [
   { id: "skills",     label: "Skills"     },
 ];
 
+const MARQUEE_ROW_1 = ["PyTorch", "TypeScript", "React", "Next.js", "FastAPI", "Docker", "AWS", "LangChain", "PostgreSQL", "Python", "SLURM", "Redis"];
+const MARQUEE_ROW_2 = ["Activation Steering", "RAG", "Multi-Agent Systems", "LLM Evaluation", "Embeddings", "Compiler Design", "REST APIs", "CI/CD", "HPC", "MCP"];
+
 export default function Home() {
   const [active, setActive] = useState("");
   const expRef  = useRef<HTMLElement>(null);
@@ -110,6 +152,23 @@ export default function Home() {
   const sectionRefs: Record<string, React.RefObject<HTMLElement | null>> = {
     experience: expRef, projects: projRef, skills: skillRef,
   };
+
+  // hero parallax
+  const heroRef = useRef<HTMLElement>(null);
+  const { scrollYProgress: heroProgress } = useScroll({
+    target: heroRef,
+    offset: ["start start", "end start"],
+  });
+  const heroOpacity = useTransform(heroProgress, [0, 0.8], [1, 0]);
+  const heroY = useTransform(heroProgress, [0, 1], [0, -120]);
+  const heroScale = useTransform(heroProgress, [0, 1], [1, 0.92]);
+
+  // experience timeline line
+  const { scrollYProgress: expProgress } = useScroll({
+    target: expRef,
+    offset: ["start end", "end start"],
+  });
+  const expLineScaleY = useSpring(expProgress, { stiffness: 100, damping: 30 });
 
   // active section via IntersectionObserver
   useEffect(() => {
@@ -127,13 +186,27 @@ export default function Home() {
     sectionRefs[id]?.current?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
-  // parallax blobs
+  // parallax blobs + shapes
   const { scrollY } = useScroll();
-  const blob1Y = useTransform(scrollY, [0, 1500], [0, -350]);
-  const blob2Y = useTransform(scrollY, [0, 1500], [0, -180]);
+  const blob1Y = useTransform(scrollY, [0, 3000], [0, -600]);
+  const blob2Y = useTransform(scrollY, [0, 3000], [0, -300]);
+  const blob3Y = useTransform(scrollY, [0, 3000], [0, -450]);
+
+  const shape1Y = useTransform(scrollY, [0, 3000], [0, -200]);
+  const shape2Y = useTransform(scrollY, [0, 3000], [0, -350]);
+  const shape3Y = useTransform(scrollY, [0, 3000], [0, -150]);
+  const shape4Y = useTransform(scrollY, [0, 3000], [0, -280]);
+  const shape5Y = useTransform(scrollY, [0, 3000], [0, -180]);
+  const shape1Rotate = useTransform(scrollY, [0, 3000], [0, 45]);
+  const shape2Rotate = useTransform(scrollY, [0, 3000], [0, -60]);
+  const shape3Rotate = useTransform(scrollY, [0, 3000], [0, 90]);
+  const shape4Rotate = useTransform(scrollY, [0, 3000], [0, -30]);
 
   return (
     <div className="flex bg-[#07070B] text-white min-h-screen overflow-x-hidden">
+
+      {/* ── scroll progress ── */}
+      <ScrollProgress />
 
       {/* ── grain ── */}
       <div className="fixed inset-0 pointer-events-none z-0 opacity-[0.025]"
@@ -147,6 +220,32 @@ export default function Home() {
         <motion.div style={{ y: blob2Y, background: "radial-gradient(circle, #0E7490 0%, transparent 70%)" }}
           className="absolute w-[600px] h-[600px] rounded-full bottom-0 -right-40 opacity-[0.18]"
           animate={{ scale: [1, 1.06, 1] }} transition={{ duration: 12, repeat: Infinity, ease: "easeInOut", delay: 4 }} />
+        <motion.div style={{ y: blob3Y, background: "radial-gradient(circle, #7C3AED 0%, transparent 70%)" }}
+          className="absolute w-[500px] h-[500px] rounded-full top-[60%] left-[20%] opacity-[0.08]"
+          animate={{ scale: [1, 1.12, 1] }} transition={{ duration: 20, repeat: Infinity, ease: "easeInOut", delay: 8 }} />
+      </div>
+
+      {/* ── floating geometric shapes ── */}
+      <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden hidden lg:block">
+        <motion.div style={{ y: shape1Y, rotate: shape1Rotate }}
+          className="absolute top-[15%] right-[15%] w-16 h-16 rounded-full border border-violet-500/[0.08]" />
+        <motion.div style={{ y: shape2Y }}
+          className="absolute top-[45%] right-[8%] w-2 h-2 rounded-full bg-cyan-400/20" />
+        <motion.div style={{ y: shape3Y, rotate: shape3Rotate }}
+          className="absolute top-[60%] left-[5%] w-0 h-0"
+          >
+          <div className="border-l-[12px] border-l-transparent border-r-[12px] border-r-transparent border-b-[20px] border-b-violet-400/[0.08]" />
+        </motion.div>
+        <motion.div style={{ y: shape4Y, rotate: shape4Rotate }}
+          className="absolute top-[30%] left-[8%] text-white/[0.04] text-4xl font-thin select-none">+</motion.div>
+        <motion.div style={{ y: shape5Y }}
+          className="absolute top-[75%] right-[20%] w-8 h-8 border border-amber-400/[0.08] rotate-12" />
+        <motion.div style={{ y: shape1Y }}
+          className="absolute top-[85%] left-[15%] w-14 h-px bg-gradient-to-r from-transparent via-cyan-400/15 to-transparent" />
+        <motion.div style={{ y: shape2Rotate }}
+          className="absolute top-[20%] left-[40%] w-1.5 h-1.5 rounded-full bg-violet-400/15" />
+        <motion.div style={{ y: shape4Y }}
+          className="absolute top-[50%] right-[30%] w-6 h-6 rounded-full border border-white/[0.04]" />
       </div>
 
       {/* ════════════════════════════════════════ SIDEBAR */}
@@ -159,7 +258,7 @@ export default function Home() {
           </motion.span>
           <motion.span className="text-[11px] text-white/55 leading-relaxed"
             initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }}>
-            LLM Research Intern @ Mila<br />McGill CS · Class of 2027
+            LLM Research Intern @ Mila<br />McGill CS &middot; Class of 2027
           </motion.span>
         </div>
 
@@ -202,113 +301,129 @@ export default function Home() {
       {/* ════════════════════════════════════════ MAIN */}
       <main className="flex-1 min-w-0 lg:pl-64">
 
-        {/* ── HERO ── */}
-        <section className="min-h-screen flex flex-col justify-center px-10 md:px-16 py-24 max-w-3xl relative">
+        {/* ── HERO with scroll parallax ── */}
+        <section ref={heroRef} className="min-h-screen flex flex-col justify-center px-10 md:px-16 py-24 max-w-3xl relative">
 
           {/* hero-specific glow spots */}
           <div className="absolute top-1/3 -left-20 w-72 h-72 bg-violet-600/15 blur-[80px] rounded-full pointer-events-none" />
           <div className="absolute top-1/2 left-40 w-48 h-48 bg-cyan-500/10 blur-[60px] rounded-full pointer-events-none" />
 
-          {/* animated top rule */}
-          <motion.div className="w-10 h-0.5 bg-violet-400 mb-8 rounded-full"
-            initial={{ scaleX: 0, originX: 0 }} animate={{ scaleX: 1 }}
-            transition={{ duration: 0.6, delay: 0.1, ease: [0.22, 1, 0.36, 1] }} />
+          <motion.div style={{ opacity: heroOpacity, y: heroY, scale: heroScale }}>
+            {/* animated top rule */}
+            <motion.div className="w-10 h-0.5 bg-violet-400 mb-8 rounded-full"
+              initial={{ scaleX: 0, originX: 0 }} animate={{ scaleX: 1 }}
+              transition={{ duration: 0.6, delay: 0.1, ease: [0.22, 1, 0.36, 1] }} />
 
-          {/* heading */}
-          <h1 className="text-5xl md:text-6xl font-black leading-tight tracking-tight mb-5">
-            <AnimatedWords text="Hi, I'm Donghao" />
-            {" "}
-            <motion.span className="inline-block" style={{ transformOrigin: "70% 70%" }}
-              animate={{ rotate: [0, 14, -6, 14, -4, 10, 0] }}
-              transition={{ duration: 2.2, repeat: Infinity, repeatDelay: 3, times: [0, 0.2, 0.4, 0.55, 0.7, 0.85, 1] }}>
-              👋
-            </motion.span>
-          </h1>
-
-          {/* metadata pills */}
-          <motion.div className="flex flex-wrap gap-2 mb-8"
-            initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.45 }}>
-            {[
-              { label: "McGill CS · Class of 2027" },
-              { label: "LLM Research @ Mila" },
-              { label: "Montreal, CA" },
-            ].map(({ label }, i) => (
-              <motion.span key={label}
-                className="px-3 py-1 rounded-full text-[11px] font-mono text-white/60 bg-white/[0.06] border border-white/[0.12] hover:border-violet-400/40 hover:text-white/80 transition-all duration-200"
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.3, delay: 0.5 + i * 0.07 }}>
-                {label}
+            {/* heading */}
+            <h1 className="text-5xl md:text-6xl font-black leading-tight tracking-tight mb-5">
+              <AnimatedWords text="Hi, I'm Donghao" />
+              {" "}
+              <motion.span className="inline-block" style={{ transformOrigin: "70% 70%" }}
+                animate={{ rotate: [0, 14, -6, 14, -4, 10, 0] }}
+                transition={{ duration: 2.2, repeat: Infinity, repeatDelay: 3, times: [0, 0.2, 0.4, 0.55, 0.7, 0.85, 1] }}>
+                👋
               </motion.span>
-            ))}
-          </motion.div>
+            </h1>
 
-          {/* mobile links */}
-          <motion.div className="flex lg:hidden flex-wrap gap-4 mb-8"
-            initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.5 }}>
-            {[
-              { href: "https://github.com/saintsauceee", Icon: FaGithub, label: "saintsauceee" },
-              { href: "https://www.linkedin.com/in/donghao-zeng/", Icon: FaLinkedin, label: "Donghao Zeng" },
-              { href: "mailto:donghao.zeng@mail.mcgill.ca", Icon: MdEmail, label: "donghao.zeng@mail.mcgill.ca" },
-            ].map(({ href, Icon, label }) => (
-              <a key={label} href={href} target={href.startsWith("http") ? "_blank" : undefined}
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 text-sm text-white/50 hover:text-white transition-colors">
-                <Icon className="h-4 w-4" />{label}
-              </a>
-            ))}
-          </motion.div>
-
-          <motion.div className="flex flex-col gap-6 text-sm text-white/80 leading-relaxed max-w-xl"
-            initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.55 }}>
-            <p>
-              I&apos;m currently a 3rd year Computer Science undergrad at{" "}
-              <span className="text-white">McGill University</span> with experience in
-              fullstack development and AI systems. I&apos;m also a research intern at{" "}
-              <a href="https://mila.quebec/en" target="_blank" rel="noopener noreferrer"
-                className="text-white underline underline-offset-3 decoration-white/25 hover:text-white/70 transition-colors">
-                Mila
-              </a>, working on interpretability for unified vision-language models.
-            </p>
-            <p>
-              Previously built end-to-end software at{" "}
-              <span className="text-white">Digitech Payments</span> and{" "}
-              <span className="text-white">Group Imi</span>, from a hybrid RAG system
-              for customer support to an AI-powered video production platform.
-            </p>
-
-            {/* interests */}
-            <div className="flex flex-col gap-3 pl-1 border-l-2 border-violet-500/30">
-              <span className="pl-4 text-[10px] font-mono text-white/40 uppercase tracking-[0.2em]">Interests</span>
+            {/* metadata pills */}
+            <motion.div className="flex flex-wrap gap-2 mb-8"
+              initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.45 }}>
               {[
-                "Building fast, user-centric tools that make everyday tasks easier",
-                "Mechanistic interpretability and representation engineering in large models",
-                "Reinforcement learning for post-training and reasoning",
-                "Always learning and experimenting with new technologies!",
-              ].map((interest, i) => (
-                <motion.div key={interest}
-                  className="flex items-start gap-3 pl-4"
-                  initial={{ opacity: 0, x: -12 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.4, delay: 0.7 + i * 0.08 }}>
-                  <span className="mt-[7px] w-1 h-1 rounded-full bg-violet-400 shrink-0" />
-                  <span className="text-sm text-white/75 leading-relaxed">{interest}</span>
-                </motion.div>
+                { label: "McGill CS · Class of 2027" },
+                { label: "LLM Research @ Mila" },
+                { label: "Montreal, CA" },
+              ].map(({ label }, i) => (
+                <motion.span key={label}
+                  className="px-3 py-1 rounded-full text-[11px] font-mono text-white/60 bg-white/[0.06] border border-white/[0.12] hover:border-violet-400/40 hover:text-white/80 transition-all duration-200"
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.3, delay: 0.5 + i * 0.07 }}>
+                  {label}
+                </motion.span>
               ))}
-            </div>
+            </motion.div>
 
-            <p className="text-white/75">
-              Outside of programming: cooking for my girlfriend, editing video for
-              non-profits, and eating every yummy food in the world 🍜
-            </p>
+            {/* mobile links */}
+            <motion.div className="flex lg:hidden flex-wrap gap-4 mb-8"
+              initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.5 }}>
+              {[
+                { href: "https://github.com/saintsauceee", Icon: FaGithub, label: "saintsauceee" },
+                { href: "https://www.linkedin.com/in/donghao-zeng/", Icon: FaLinkedin, label: "Donghao Zeng" },
+                { href: "mailto:donghao.zeng@mail.mcgill.ca", Icon: MdEmail, label: "donghao.zeng@mail.mcgill.ca" },
+              ].map(({ href, Icon, label }) => (
+                <a key={label} href={href} target={href.startsWith("http") ? "_blank" : undefined}
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 text-sm text-white/50 hover:text-white transition-colors">
+                  <Icon className="h-4 w-4" />{label}
+                </a>
+              ))}
+            </motion.div>
+
+            <motion.div className="flex flex-col gap-6 text-sm text-white/80 leading-relaxed max-w-xl"
+              initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.55 }}>
+              <p>
+                I&apos;m currently a 3rd year Computer Science undergrad at{" "}
+                <span className="text-white">McGill University</span> with experience in
+                fullstack development and AI systems. I&apos;m also a research intern at{" "}
+                <a href="https://mila.quebec/en" target="_blank" rel="noopener noreferrer"
+                  className="text-white underline underline-offset-3 decoration-white/25 hover:text-white/70 transition-colors">
+                  Mila
+                </a>, working on interpretability for unified vision-language models.
+              </p>
+              <p>
+                Previously built end-to-end software at{" "}
+                <span className="text-white">Digitech Payments</span> and{" "}
+                <span className="text-white">Group Imi</span>, from a hybrid RAG system
+                for customer support to an AI-powered video production platform.
+              </p>
+
+              {/* interests */}
+              <div className="flex flex-col gap-3 pl-1 border-l-2 border-violet-500/30">
+                <span className="pl-4 text-[10px] font-mono text-white/40 uppercase tracking-[0.2em]">Interests</span>
+                {[
+                  "Building fast, user-centric tools that make everyday tasks easier",
+                  "Mechanistic interpretability and representation engineering in large models",
+                  "Reinforcement learning for post-training and reasoning",
+                  "Always learning and experimenting with new technologies!",
+                ].map((interest, i) => (
+                  <motion.div key={interest}
+                    className="flex items-start gap-3 pl-4"
+                    initial={{ opacity: 0, x: -12 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.4, delay: 0.7 + i * 0.08 }}>
+                    <span className="mt-[7px] w-1 h-1 rounded-full bg-violet-400 shrink-0" />
+                    <span className="text-sm text-white/75 leading-relaxed">{interest}</span>
+                  </motion.div>
+                ))}
+              </div>
+
+              <p className="text-white/75">
+                Outside of programming: cooking for my girlfriend, editing video for
+                non-profits, and eating every yummy food in the world 🍜
+              </p>
+            </motion.div>
           </motion.div>
         </section>
 
+        {/* ── MARQUEE STRIP ── */}
+        <div className="border-y border-white/[0.06] relative overflow-hidden py-4">
+          <div className="absolute inset-0 bg-gradient-to-r from-[#07070B] via-transparent to-[#07070B] z-10 pointer-events-none" />
+          <Marquee items={MARQUEE_ROW_1} speed={25} />
+          <div className="h-2" />
+          <Marquee items={MARQUEE_ROW_2} reverse speed={35} />
+        </div>
+
         {/* ── EXPERIENCE ── */}
-        <section id="experience" ref={expRef} className="px-10 md:px-16 py-20">
+        <section id="experience" ref={expRef} className="px-10 md:px-16 py-20 relative">
+          {/* timeline line that draws on scroll */}
+          <motion.div
+            className="absolute left-5 md:left-10 top-20 bottom-20 w-px bg-gradient-to-b from-violet-500/40 via-amber-500/30 to-sky-500/40 origin-top hidden lg:block"
+            style={{ scaleY: expLineScaleY }}
+          />
+
           <Reveal from="left">
             <div className="flex items-center gap-5 mb-16">
               <span className="text-[10px] font-mono text-white/45 tracking-[0.3em] uppercase">01 / Experience</span>
@@ -343,7 +458,13 @@ export default function Home() {
                         </div>
                         <div className="text-sm text-white/60 italic mt-0.5 pl-4">{exp.role}</div>
                       </motion.div>
-                      <span className="text-xs font-mono text-white/55 shrink-0 pt-1">{exp.period}</span>
+                      <motion.span className="text-xs font-mono text-white/55 shrink-0 pt-1"
+                        initial={{ opacity: 0, x: 30 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.6, delay: i * 0.08 + 0.2, ease: [0.22, 1, 0.36, 1] }}>
+                        {exp.period}
+                      </motion.span>
                     </div>
 
                     <ul className="flex flex-col gap-2.5 max-w-2xl">
@@ -353,7 +474,7 @@ export default function Home() {
                           whileInView={{ opacity: 1, x: 0 }}
                           viewport={{ once: true }}
                           transition={{ duration: 0.5, delay: i * 0.06 + j * 0.08 + 0.2 }}>
-                          <span className="text-white/40 shrink-0 mt-0.5 select-none">—</span>{b}
+                          <span className="text-white/40 shrink-0 mt-0.5 select-none">&mdash;</span>{b}
                         </motion.li>
                       ))}
                     </ul>
@@ -403,7 +524,7 @@ export default function Home() {
                     <ul className="flex flex-col gap-2 flex-1">
                       {proj.bullets.map((b, j) => (
                         <li key={j} className="flex gap-2.5 text-sm text-white/75 leading-relaxed">
-                          <span className="text-white/40 shrink-0 mt-0.5 select-none">—</span>{b}
+                          <span className="text-white/40 shrink-0 mt-0.5 select-none">&mdash;</span>{b}
                         </li>
                       ))}
                     </ul>
@@ -433,11 +554,15 @@ export default function Home() {
                       {skill.name}
                     </span>
                     <div className="flex flex-wrap gap-2">
-                      {skill.elements.map((el) => (
-                        <span key={el}
-                          className="px-2.5 py-0.5 rounded text-[11px] text-white/70 bg-white/[0.06] border border-white/[0.1] hover:text-white hover:bg-white/[0.1] transition-colors duration-150">
+                      {skill.elements.map((el, j) => (
+                        <motion.span key={el}
+                          className="px-2.5 py-0.5 rounded text-[11px] text-white/70 bg-white/[0.06] border border-white/[0.1] hover:text-white hover:bg-white/[0.1] transition-colors duration-150"
+                          initial={{ opacity: 0, y: 10 }}
+                          whileInView={{ opacity: 1, y: 0 }}
+                          viewport={{ once: true }}
+                          transition={{ duration: 0.3, delay: i * 0.05 + j * 0.03 }}>
                           {el}
-                        </span>
+                        </motion.span>
                       ))}
                     </div>
                   </div>
@@ -449,7 +574,7 @@ export default function Home() {
         </section>
 
         <footer className="px-10 md:px-16 py-10 flex items-center justify-between text-[10px] font-mono text-white/40 border-t border-white/[0.06]">
-          <span>Donghao Zeng © 2026</span>
+          <span>Donghao Zeng &copy; 2026</span>
           <span>Montreal</span>
         </footer>
 
