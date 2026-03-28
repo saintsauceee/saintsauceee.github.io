@@ -1,27 +1,27 @@
 export const EXPERIENCES: Experience[] = [
     {
         company: "Mila – Quebec AI Institute",
-        role: "AI Research Intern",
-        period: "Jan. 2026 – Present",
+        role: "LLM Research Intern",
+        period: "January 2026 – Present",
         technologies: [
             "PyTorch", "Docker", "HuggingFace", "Multi-GPU", "LLM Evaluation"
         ],
         bullets: [
-            "Conducting research on cross-modal representation sharing in unified Vision-Language Models, extracting and steering residual stream directions to study how text-derived concepts influence fine-grained image generation and editing.",
-            "Engineered reproducible PyTorch experimentation pipelines on multi-GPU clusters with Docker, implementing activation steering and LLM-based evaluation pipelines. Applied GPU profiling to improve experiment throughput by 35%.",
-            "Collaborated with senior researchers to iteratively design, evaluate, and refine experimental methodologies.",
+            "Built a multi-gpu inference pipeline with PyTorch for activation steering experiments on unified multimodal LLMs, executing large-scale evaluation sweeps across concepts, prompts, and scaling parameters (180k+ samples).",
+            "Engineered a 133x performance optimization (from 400+ hours to <3 hours) for autoregressive image generation by architecting a batched, data-parallel pipeline on a SLURM-managed HPC cluster, leveraging KV caching and preallocated attention masks.",
+            "Implemented low-level activation steering via PyTorch forward hooks, injecting training-free steering vectors into transformer hidden states at inference time for fine-grained control of image generation attributes (e.g., age, emotion, color).",
         ]
     },
     {
         company: "Digitech Payments",
         role: "Software Developer Intern",
-        period: "July 2025 – Aug. 2025",
+        period: "July 2025 – August 2025",
         technologies: [
             "Electron.js", "Express", "LangChain", "pgvector", "Docker", "GCP", "Python", "TypeScript"
         ],
         bullets: [
-            "Built and deployed a GenAI-driven tool using hybrid RAG (vector search + structured queries) over the company's knowledge base, reducing average customer support resolution time by 25% using Electron, Express, LangChain and pgvector.",
-            "Engineered a document ingestion pipeline processing 10k+ internal documents per month using LLM chunking and batched embeddings, deployed on Google Compute Engine via CI/CD with Docker + GitHub Actions.",
+            "Shipped a GenAI + hybrid RAG-powered tool over the company's knowledge base to assist a 25+ member customer support team on live calls. Cut average resolution time by 20%. Built with LangChain, pgvector, Electron (React), and Express.",
+            "Engineered a data ingestion pipeline processing 10k+ internal documents/month using LLM chunking, batched embeddings, and asynchronous processing. Deployed on Google Compute Engine with Terraform, Docker, and GitHub Actions.",
         ]
     },
     {
@@ -32,9 +32,10 @@ export const EXPERIENCES: Experience[] = [
             "Next.js", "Express", "TypeScript", "AWS Bedrock", "PostgreSQL", "AWS", "Python"
         ],
         bullets: [
-            "Shipped a fullstack video production platform integrating video captioning and multimodal LLM pipelines for highlight segmentation, reducing manual footage review time by 85%. Demoed at the Vancouver Web Summit (15k+ attendees).",
-            "Developed a Claude Sonnet-powered microservice using AWS Bedrock for AI content generation serving 5K+ user requests daily, implementing tool use, prompt templates, streaming responses, rate limiting, and fault-tolerant retries.",
-            "Implemented 20+ production REST API endpoints with Express + TypeScript (payments, auth, image/video generation), deployed via automated pipelines to AWS EC2 with secure NGINX SSL termination.",
+            "Led the development of a fullstack video production platform integrating video captioning and multimodal LLM pipelines for highlight segmentation, reducing manual footage review time by 85%. Demoed at Vancouver Web Summit (15k+ attendees).",
+            "Developed a Claude Sonnet-powered microservice using AWS Bedrock for AI content generation serving 5K+ user requests daily, implementing tool use, prompt templates, streaming responses, fault-tolerant retries, and rate limiting.",
+            "Implemented 20+ production REST APIs with Express + TypeScript supporting payments, auth, and image/video generation, deployed via CI/CD (Docker + GitHub Actions) to AWS EC2 with nginx and SSL termination.",
+            "Owned production reliability, diagnosing and resolving issues through logging, monitoring, and systematic debugging.",
         ]
     }
 ]
@@ -43,9 +44,9 @@ export const PROJECTS: Project[] = [
     {
         title: "Thread Lens",
         description: "",
-        tech: "Multi-Agent Systems · LLM APIs · Python",
+        tech: "LangGraph · MCP · Next.js · FastAPI · Redis · PostgreSQL",
         bullets: [
-            "Built a multi-agent deep research system for Reddit, where a planner agent decomposes user prompts into research tasks executed by parallel worker agents that analyze discussion threads and synthesize findings into structured reports.",
+            "Developed a multi-agent deep research system that processes and analyzes large-scale Reddit discussion data, decomposing queries into research tasks executed by parallel worker agents and synthesizing findings into structured reports.",
         ]
     },
     {
@@ -53,7 +54,7 @@ export const PROJECTS: Project[] = [
         description: "",
         tech: "Java · Compiler Design · MIPS Assembly",
         bullets: [
-            "Built a mini C compiler in Java targeting MIPS assembly instructions, implementing a handwritten lexer, recursive-descent parser, semantic analyzer, code generator, and register allocator.",
+            "Built a mini C compiler in Java targeting MIPS assembly, implementing a handwritten lexer, recursive-descent parser, semantic analyzer, code generator, and register allocator. Validated against 450+ unit and integration tests across all compilation stages.",
         ]
     },
 ]
@@ -62,31 +63,25 @@ export const SKILLS: Skill[] = [
     {
         name: "AI/ML",
         elements: [
-            "PyTorch", "Scikit-Learn", "HuggingFace", "LLM Post-Training (SFT, RL, PEFT)", "Embeddings", "RAG"
+            "PyTorch", "Scikit-Learn", "Hugging Face", "LLM Post-Training (SFT, RL, PEFT)", "Embeddings", "RAG"
         ]
     },
     {
         name: "Programming Languages",
         elements: [
-            "Python", "TypeScript", "JavaScript", "Java", "C/C++", "SQL", "Bash"
+            "Python", "TypeScript", "JavaScript", "Java", "C/C++", "SQL (Postgres)", "Bash", "HTML/CSS"
         ]
     },
     {
         name: "Frameworks",
         elements: [
-            "Node.js", "Express", "FastAPI", "WebSockets", "React", "Next.js", "HTML", "CSS"
+            "Node.js", "Express", "FastAPI", "React", "Next.js", "LangChain/LangGraph"
         ]
     },
     {
-        name: "Cloud",
+        name: "Tools",
         elements: [
-            "Google Cloud (Run, Compute Engine, Storage)", "AWS (EC2, S3)"
-        ]
-    },
-    {
-        name: "Developer Tools",
-        elements: [
-            "Git", "Docker", "Terraform", "GitHub Actions", "Unix/Linux"
+            "Git", "GitHub Actions", "Docker", "Terraform", "AWS", "Google Cloud Platform", "Linux"
         ]
     },
 ]

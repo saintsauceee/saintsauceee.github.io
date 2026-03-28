@@ -159,7 +159,7 @@ export default function Home() {
           </motion.span>
           <motion.span className="text-[11px] text-white/55 leading-relaxed"
             initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }}>
-            AI Research Intern @ Mila<br />McGill CS · Class of 2027
+            LLM Research Intern @ Mila<br />McGill CS · Class of 2027
           </motion.span>
         </div>
 
@@ -231,7 +231,7 @@ export default function Home() {
             transition={{ duration: 0.5, delay: 0.45 }}>
             {[
               { label: "McGill CS · Class of 2027" },
-              { label: "AI Research @ Mila" },
+              { label: "LLM Research @ Mila" },
               { label: "Montreal, CA" },
             ].map(({ label }, i) => (
               <motion.span key={label}
