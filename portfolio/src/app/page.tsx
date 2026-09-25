@@ -1,4 +1,4 @@
-import { EDUCATION, EXPERIENCES, SKILLS } from "@/data";
+import { EDUCATION, EXPERIENCES } from "@/data";
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
@@ -43,23 +43,6 @@ export default function Home() {
                   {exp.technologies.map((t) => (
                     <span key={t} className="px-2 py-0.5 rounded text-[11px] text-white/70 bg-white/[0.06] border border-white/[0.1]">
                       {t}
-                    </span>
-                  ))}
-                </div>
-              </li>
-            ))}
-          </ul>
-        </Section>
-
-        <Section title="Skills">
-          <ul className="flex flex-col gap-4">
-            {SKILLS.map((skill) => (
-              <li key={skill.name} className="flex flex-col sm:flex-row gap-2 sm:gap-8">
-                <span className="text-sm text-white/65 sm:w-44 shrink-0">{skill.name}</span>
-                <div className="flex flex-wrap gap-1.5">
-                  {skill.elements.map((el) => (
-                    <span key={el} className="px-2 py-0.5 rounded text-[11px] text-white/70 bg-white/[0.06] border border-white/[0.1]">
-                      {el}
                     </span>
                   ))}
                 </div>

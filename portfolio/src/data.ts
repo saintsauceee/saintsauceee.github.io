@@ -32,30 +32,3 @@ export const EXPERIENCES: Experience[] = [
         ],
     },
 ]
-
-export const SKILLS: Skill[] = [
-    {
-        name: "AI/ML",
-        elements: [
-            "PyTorch", "Scikit-Learn", "Hugging Face", "LLM Post-Training (SFT, RL, PEFT)", "Embeddings", "RAG"
-        ]
-    },
-    {
-        name: "Programming Languages",
-        elements: [
-            "Python", "TypeScript", "JavaScript", "Java", "C/C++", "SQL (Postgres)", "Bash", "HTML/CSS"
-        ]
-    },
-    {
-        name: "Frameworks",
-        elements: [
-            "Node.js", "Express", "FastAPI", "React", "Next.js", "LangChain/LangGraph"
-        ]
-    },
-    {
-        name: "Tools",
-        elements: [
-            "Git", "GitHub Actions", "Docker", "Terraform", "AWS", "Google Cloud Platform", "Linux"
-        ]
-    },
-]

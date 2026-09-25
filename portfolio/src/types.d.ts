@@ -10,8 +10,3 @@ type Experience = {
     period: string;
     technologies: string[];
 }
-
-type Skill = {
-    name: string;
-    elements: string[];
-}
