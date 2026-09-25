@@ -8,9 +8,14 @@ export const EDUCATION: Education[] = [
 
 export const EXPERIENCES: Experience[] = [
     {
+        company: "Roche",
+        role: "Applied AI Engineer Intern",
+        period: "Sep 2026 – Present",
+    },
+    {
         company: "Mila – Quebec AI Institute",
         role: "LLM Research Intern",
-        period: "Jan 2026 – Present",
+        period: "Jan – Aug 2026",
     },
     {
         company: "Digitech Payments",
