@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Jost } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"] });
+const jost = Jost({ subsets: ["latin"], weight: ["400", "500"] });
 
 export const metadata: Metadata = {
   title: "Donghao Zeng",
-  description: "Donghao Zeng — Computer Science, McGill University",
+  description: "Donghao Zeng — Computer Science student at McGill University",
 };
 
 export default function RootLayout({
@@ -15,7 +15,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={inter.className}>
+    <html lang="en" className={jost.className}>
       <body>{children}</body>
     </html>
   );
