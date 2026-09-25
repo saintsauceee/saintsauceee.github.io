@@ -9,8 +9,8 @@ function Section({ title, children }: { title: string; children: React.ReactNode
   );
 }
 
-function Entry({ title, subtitle, period, note }: {
-  title: string; subtitle: string; period: string; note?: string;
+function Entry({ title, subtitle, period }: {
+  title: string; subtitle: string; period: string;
 }) {
   return (
     <li className="py-4 first:pt-0 last:pb-0 flex flex-col gap-0.5">
@@ -19,7 +19,6 @@ function Entry({ title, subtitle, period, note }: {
         <span className="text-[13px] text-[var(--faint)] tabular-nums shrink-0">{period}</span>
       </div>
       <span className="text-[14px] text-[var(--muted)]">{subtitle}</span>
-      {note && <span className="text-[13px] text-[var(--faint)] mt-1.5 leading-relaxed">{note}</span>}
     </li>
   );
 }
@@ -45,8 +44,7 @@ export default function Home() {
         <Section title="Experience">
           <ul className="flex flex-col divide-y divide-[var(--line)]">
             {EXPERIENCES.map((exp) => (
-              <Entry key={exp.company} title={exp.company} subtitle={exp.role}
-                period={exp.period} note={exp.technologies.join(", ")} />
+              <Entry key={exp.company} title={exp.company} subtitle={exp.role} period={exp.period} />
             ))}
           </ul>
         </Section>
