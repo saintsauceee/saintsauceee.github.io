@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
 import { EDUCATION, EXPERIENCES } from "@/data";
 
 const ease = [0.22, 1, 0.36, 1] as const;
@@ -10,20 +9,6 @@ const fade = {
   show: { opacity: 1, y: 0, transition: { duration: 0.5, ease } },
 };
 const stagger = { hidden: {}, show: { transition: { staggerChildren: 0.06 } } };
-
-function Clock() {
-  const [time, setTime] = useState<string | null>(null);
-  useEffect(() => {
-    const tick = () =>
-      setTime(new Intl.DateTimeFormat("en-US", {
-        timeZone: "America/Montreal", hour: "numeric", minute: "2-digit", hour12: true,
-      }).format(new Date()));
-    tick();
-    const id = setInterval(tick, 10_000);
-    return () => clearInterval(id);
-  }, []);
-  return <span className="tabular-nums">{time ?? " "}</span>;
-}
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
@@ -86,12 +71,6 @@ export default function Home() {
             ))}
           </motion.ul>
         </Section>
-
-        <motion.footer variants={fade}
-          className="flex justify-between px-3 pt-6 border-t border-[var(--line)] text-[12px] text-[var(--faint)]">
-          <span>Montreal, Canada</span>
-          <Clock />
-        </motion.footer>
 
       </motion.div>
     </main>
