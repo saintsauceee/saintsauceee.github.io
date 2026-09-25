@@ -6,6 +6,18 @@
   --muted: #6b6f76;
   --faint: #9a9ea6;
   --line: #e0e2e6;
+  --hover: #e9eaee;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #131417;
+    --fg: #e6e7ea;
+    --muted: #9a9ea6;
+    --faint: #6b6f76;
+    --line: #26282d;
+    --hover: #1b1c20;
+  }
 }
 
 html,
@@ -19,5 +31,11 @@ body {
 }
 
 ::selection {
-  background: #dfe2e7;
+  background: var(--hover);
 }
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.35; transform: scale(0.75); }
+}
+.pulse { animation: pulse-dot 2.4s ease-in-out infinite; }
