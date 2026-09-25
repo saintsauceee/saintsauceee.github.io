@@ -10,7 +10,7 @@ export const EXPERIENCES: Experience[] = [
     {
         company: "Mila – Quebec AI Institute",
         role: "LLM Research Intern",
-        period: "January 2026 – Present",
+        period: "Jan 2026 – Present",
         technologies: [
             "PyTorch", "Docker", "HuggingFace", "Multi-GPU", "LLM Evaluation"
         ],
@@ -18,7 +18,7 @@ export const EXPERIENCES: Experience[] = [
     {
         company: "Digitech Payments",
         role: "Software Developer Intern",
-        period: "July 2025 – August 2025",
+        period: "Jul – Aug 2025",
         technologies: [
             "Electron.js", "Express", "LangChain", "pgvector", "Docker", "GCP", "Python", "TypeScript"
         ],
@@ -26,7 +26,7 @@ export const EXPERIENCES: Experience[] = [
     {
         company: "Group Imi",
         role: "Software Developer Intern",
-        period: "July 2024 – May 2025",
+        period: "Jul 2024 – May 2025",
         technologies: [
             "Next.js", "Express", "TypeScript", "AWS Bedrock", "PostgreSQL", "AWS", "Python"
         ],
