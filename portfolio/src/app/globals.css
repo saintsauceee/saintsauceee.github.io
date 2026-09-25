@@ -1,11 +1,11 @@
 @import "tailwindcss";
 
 :root {
-  --bg: #f6f5f0;
-  --fg: #3b3a36;
-  --muted: #7c7a73;
-  --faint: #a8a59c;
-  --line: #e3e1d9;
+  --bg: #f2f3f5;
+  --fg: #27292d;
+  --muted: #6b6f76;
+  --faint: #9a9ea6;
+  --line: #e0e2e6;
 }
 
 html,
@@ -19,5 +19,5 @@ body {
 }
 
 ::selection {
-  background: #e6e3d8;
+  background: #dfe2e7;
 }
